@@ -1,7 +1,7 @@
 const Session = require("../models/session");
 const Booking = require("../models/booking");
 const User = require("../models/user");
-const utils = require("../utils/serverUtils");
+const utils = require("../utils/formatUtils");
 const userDb = require("./userDb");
 
 // TODO-ST: prevention for not being able to create something new, scheduled in the past

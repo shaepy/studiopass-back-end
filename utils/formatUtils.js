@@ -97,4 +97,38 @@ const formatAgendaBookings = (bookings) => {
   return formattedBookings;
 };
 
-module.exports = { formatSessions, formatSession, formatAgendaBookings };
+const formatUserBookings = (userBookings) => {
+  return userBookings.map((booking) => {
+    const start = dayjs(booking.sessionId.startAt);
+    const end = dayjs(booking.sessionId.endAt);
+
+    const startDate = start.format("ddd, MMM D");
+    const endDate = end.format("ddd, MMM D");
+    const startTime = start.format("h:mm A");
+    const endTime = end.format("h:mm A");
+
+    const weekday = start.format("ddd");
+    const month = start.format("MMM");
+    const day = start.format("D");
+    const year = start.format("YYYY");
+
+    return {
+      ...booking.toObject(),
+      month: month,
+      day: day,
+      year: year,
+      weekday: weekday,
+      startTime: startTime,
+      endTime: endTime,
+      startDate: startDate,
+      endDate: endDate,
+    };
+  });
+};
+
+module.exports = {
+  formatSessions,
+  formatSession,
+  formatAgendaBookings,
+  formatUserBookings,
+};

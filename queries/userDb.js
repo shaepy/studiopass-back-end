@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const Booking = require("../models/booking");
+const utils = require("../utils/formatUtils");
 
 const getAllUsers = async () => {
   return await User.find({});
@@ -14,13 +14,17 @@ const getStudents = async () => {
 };
 
 const getUserById = async (userId) => {
-  return await User.findById(userId).populate([
+  const user = await User.findById(userId).populate([
     {
       path: "bookings",
       populate: { path: "sessionId" },
     },
     "sessions",
   ]);
+  return {
+    user,
+    userBookings: utils.formatUserBookings(user.bookings),
+  };
 };
 
 const addUserReservedStatus = async (session, userId) => {
